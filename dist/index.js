@@ -49,6 +49,7 @@ function run() {
             const octokit = github.getOctokit(myToken);
             const { owner, repo } = github.context.repo;
             const hackathon_end_string = core.getInput('hackathon_end');
+            core.debug(`Hackathon End: ${hackathon_end_string}`);
             const hackathon_end = luxon_1.DateTime.fromISO(hackathon_end_string);
             /*
             if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {

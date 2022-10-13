@@ -12,6 +12,9 @@ async function run(): Promise<void> {
     const {owner, repo} = github.context.repo
 
     const hackathon_end_string: string = core.getInput('hackathon_end')
+
+    core.debug(`Hackathon End: ${hackathon_end_string}`)
+
     const hackathon_end = DateTime.fromISO(hackathon_end_string)
 
     /*
