@@ -64,8 +64,8 @@ function run() {
                 repo,
                 issue_number
             });
-            const time_parts = diff.toFormat("dd hh mm ss").split(' ');
-            const body = `# Hackathon countdown\n\nTime Left:\n${time_parts[0]} days ${time_parts[1]} hours ${time_parts[2]}} minutes ${time_parts[3]} seconds`;
+            const time_parts = diff.toFormat('dd hh mm ss').split(' ');
+            const body = `# Hackathon countdown\n\nTime Left:\n${time_parts[0]} days ${time_parts[1]} hours ${time_parts[2]} minutes ${time_parts[3]} seconds`;
             core.debug(`Body: \n ${body}`);
             const comment_opt = comments.data.find(c => { var _a; return ((_a = c.user) === null || _a === void 0 ? void 0 : _a.type) === 'Bot' && c.user.login === 'github-actions[bot]'; });
             if (comment_opt === undefined) {

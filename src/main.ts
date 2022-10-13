@@ -37,7 +37,7 @@ async function run(): Promise<void> {
 
     const time_parts = diff.toFormat('dd hh mm ss').split(' ')
 
-    const body = `# Hackathon countdown\n\nTime Left:\n${time_parts[0]} days ${time_parts[1]} hours ${time_parts[2]}} minutes ${time_parts[3]} seconds`
+    const body = `# Hackathon countdown\n\nTime Left:\n${time_parts[0]} days ${time_parts[1]} hours ${time_parts[2]} minutes ${time_parts[3]} seconds`
 
     core.debug(`Body: \n ${body}`)
 
