@@ -11,7 +11,6 @@ inputs:
   my_token:
     required: true
     description: 'The GitHub token.'
-    default: '${{ secrets.GITHUB_TOKEN }}'
   
 runs:
   using: 'node16'
