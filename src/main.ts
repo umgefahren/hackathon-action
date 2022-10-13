@@ -14,9 +14,6 @@ async function run(): Promise<void> {
     const hackathon_end_string: string = core.getInput('hackathon_end')
     const hackathon_end = DateTime.fromISO(hackathon_end_string)
 
-    core.debug(`Hackathon End in Unix: ${hackathon_end.toUnixInteger()}`)
-    core.debug(`Now in Unix: ${DateTime.now().toUnixInteger()}`)
-
     /*
     if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
       core.setFailed('Disable this workflow, the hackathon should be over')
