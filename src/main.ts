@@ -22,7 +22,8 @@ async function run(): Promise<void> {
     })
 
     core.debug(`Association: ${comment.data.author_association}`)
-    core.debug(`User: ${comment.data.user}`)
+    core.debug(`User: ${comment.data.user?.name}`)
+    core.debug(JSON.stringify(comment.data.user))
 
     /*
     const comments = await octokit.rest.issues.listComments({

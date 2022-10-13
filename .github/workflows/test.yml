@@ -10,6 +10,9 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - uses: actions/checkout@v2
       - run: |
           npm install
@@ -17,10 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - run: |
           npm i && npm run all
       - uses: ./
         with:
-          issue_number: 1
+          issue_number: 10
           hackathon_end: "2022-10-20T15:02:51Z"
           my_token: ${{ secrets.GITHUB_TOKEN }}
