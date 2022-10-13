@@ -1,11 +1,18 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Hackathon Helper'
+description: 'Helps to succeed the next hackathon.'
+author: 'umgefahren'
 inputs:
-  milliseconds: # change this
+  issue_number:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The issue under which you want the hackathon progress comment.'
+  hackathon_end:
+    required: true
+    description: 'When the hackathon will end formatted in ISO 8601.'
+  my_token:
+    required: true
+    description: 'The GitHub token.'
+    default: '${{ secrets.GITHUB_TOKEN }}'
+  
 runs:
   using: 'node16'
   main: 'dist/index.js'

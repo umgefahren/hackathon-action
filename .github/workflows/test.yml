@@ -21,4 +21,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          issue_number: 1
+          hackathon_end: "2022-10-13T15:02:51.234Z"

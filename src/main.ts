@@ -1,16 +1,48 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as github from '@actions/github'
+
+import { DateTime } from 'luxon'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const myToken = core.getInput('my_token')
 
-    core.setOutput('time', new Date().toTimeString())
+    const octokit = github.getOctokit(myToken)
+
+    const { owner, repo } = github.context.repo
+
+
+    const issue_number_string: string = core.getInput('issue_number')
+    const issue_number = parseInt(issue_number_string)
+
+    const comment = await octokit.rest.issues.createComment({
+      owner,
+      repo,
+      issue_number,
+      body: "Action comment"
+    })
+
+    core.debug(`Association: ${comment.data.author_association}`)
+    core.debug(`User: ${comment.data.user}`)
+    
+    /*
+    const comments = await octokit.rest.issues.listComments({
+      owner,
+      repo,
+      issue_number
+    })
+    */
+
+    // comments.data.find((comment) => comment.user.)
+
+
+    const hackathon_end_string: string = core.getInput('hackathon_end')
+    const hackathon_end = DateTime.fromISO(hackathon_end_string)
+
+
+    const diff = hackathon_end.diffNow()
+    
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
