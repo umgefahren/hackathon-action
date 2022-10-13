@@ -49,9 +49,9 @@ function run() {
             const { owner, repo } = github.context.repo;
             const hackathon_end_string = core.getInput('hackathon_end');
             core.debug(`Hackathon End: ${hackathon_end_string}`);
-            const hackathon_end = luxon_1.DateTime.fromFormat(hackathon_end_string, "MM/dd/yyyy hh:mm:ss");
+            const hackathon_end = luxon_1.DateTime.fromFormat(hackathon_end_string, 'MM/dd/yyyy hh:mm:ss');
             if (!hackathon_end.isValid)
-                throw new Error("Hackathon end is invalid");
+                throw new Error('Hackathon end is invalid');
             /*
             if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
               core.setFailed('Disable this workflow, the hackathon should be over')
@@ -66,7 +66,7 @@ function run() {
                 repo,
                 issue_number
             });
-            const body = `# Hackathon countdown\n\nTime Left: ${diff.toHuman()}`;
+            const body = `# Hackathon countdown\n\nTime Left:\n${diff.days} days ${diff.hours} hours ${diff.minutes} minutes ${diff.seconds} seconds`;
             core.debug(`Body: \n ${body}`);
             const comment_opt = comments.data.find(c => { var _a; return ((_a = c.user) === null || _a === void 0 ? void 0 : _a.type) === 'Bot' && c.user.login === 'github-actions[bot]'; });
             if (comment_opt === undefined) {
