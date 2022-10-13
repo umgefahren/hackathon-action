@@ -66,7 +66,7 @@ function run() {
                 repo,
                 issue_number
             });
-            const body = `# Hackathon countdown\n\nTime Left:\n${diff.days} days ${diff.hours} hours ${diff.minutes} minutes ${diff.seconds} seconds`;
+            const body = `# Hackathon countdown\n\nTime Left:\n${diff.toFormat('dd')} days ${diff.toFormat('hh')} hours ${diff.toFormat('mm')} minutes ${diff.toFormat('ss')} seconds`;
             core.debug(`Body: \n ${body}`);
             const comment_opt = comments.data.find(c => { var _a; return ((_a = c.user) === null || _a === void 0 ? void 0 : _a.type) === 'Bot' && c.user.login === 'github-actions[bot]'; });
             if (comment_opt === undefined) {

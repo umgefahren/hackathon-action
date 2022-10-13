@@ -37,8 +37,11 @@ async function run(): Promise<void> {
       issue_number
     })
 
-
-    const body = `# Hackathon countdown\n\nTime Left:\n${diff.get('days')} days ${diff.get('hours')} hours ${diff.get('minutes')} minutes ${diff.seconds} seconds`
+    const body = `# Hackathon countdown\n\nTime Left:\n${diff.toFormat(
+      'dd'
+    )} days ${diff.toFormat('hh')} hours ${diff.toFormat(
+      'mm'
+    )} minutes ${diff.toFormat('ss')} seconds`
 
     core.debug(`Body: \n ${body}`)
 
