@@ -20,5 +20,5 @@ jobs:
       - uses: ./
         with:
           issue_number: 1
-          hackathon_end: "2022-10-13T15:02:51.234Z"
+          hackathon_end: "2022-10-20T15:02:51Z"
           my_token: ${{ secrets.GITHUB_TOKEN }}
