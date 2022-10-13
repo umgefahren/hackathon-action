@@ -51,7 +51,7 @@ function run() {
             const hackathon_end_string = core.getInput('hackathon_end');
             const hackathon_end = luxon_1.DateTime.fromISO(hackathon_end_string);
             if (hackathon_end.toUnixInteger() < luxon_1.DateTime.now().toUnixInteger()) {
-                core.setFailed("Disable this workflow");
+                core.setFailed('Disable this workflow');
             }
             const diff = hackathon_end.diffNow();
             const issue_number_string = core.getInput('issue_number');
@@ -62,6 +62,7 @@ function run() {
                 issue_number
             });
             const body = `# Hackathon countdown\n\nTime Left: ${diff.toHuman()}`;
+            core.debug(`Body: \n ${body}`);
             const comment_opt = comments.data.find(c => { var _a; return ((_a = c.user) === null || _a === void 0 ? void 0 : _a.type) === 'Bot' && c.user.login === 'github-actions[bot]'; });
             if (comment_opt === undefined) {
                 yield octokit.rest.issues.createComment({

@@ -31,6 +31,8 @@ async function run(): Promise<void> {
 
     const body = `# Hackathon countdown\n\nTime Left: ${diff.toHuman()}`
 
+    core.debug(`Body: \n ${body}`)
+
     const comment_opt = comments.data.find(
       c => c.user?.type === 'Bot' && c.user.login === 'github-actions[bot]'
     )
