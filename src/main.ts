@@ -14,6 +14,10 @@ async function run(): Promise<void> {
     const hackathon_end_string: string = core.getInput('hackathon_end')
     const hackathon_end = DateTime.fromISO(hackathon_end_string)
 
+    if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
+      core.setFailed('Disable this workflow')
+    }
+
     const diff = hackathon_end.diffNow()
 
     const issue_number_string: string = core.getInput('issue_number')
