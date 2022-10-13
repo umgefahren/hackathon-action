@@ -50,9 +50,13 @@ function run() {
             const { owner, repo } = github.context.repo;
             const hackathon_end_string = core.getInput('hackathon_end');
             const hackathon_end = luxon_1.DateTime.fromISO(hackathon_end_string);
-            if (hackathon_end.toUnixInteger() < luxon_1.DateTime.now().toUnixInteger()) {
-                core.setFailed('Disable this workflow');
+            core.debug(`Hackathon End in Unix: ${hackathon_end.toUnixInteger()}`);
+            core.debug(`Now in Unix: ${luxon_1.DateTime.now().toUnixInteger()}`);
+            /*
+            if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
+              core.setFailed('Disable this workflow, the hackathon should be over')
             }
+            */
             const diff = hackathon_end.diffNow();
             const issue_number_string = core.getInput('issue_number');
             const issue_number = parseInt(issue_number_string);
