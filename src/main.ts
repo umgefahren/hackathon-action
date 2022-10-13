@@ -38,6 +38,7 @@ async function run(): Promise<void> {
     const hackathon_end = DateTime.fromISO(hackathon_end_string)
 
     const diff = hackathon_end.diffNow()
+    core.debug(`Diff: ${diff.days}`)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
