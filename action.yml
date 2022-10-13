@@ -1,6 +1,8 @@
 name: 'Hackathon Helper'
 description: 'Helps to succeed the next hackathon.'
 author: 'umgefahren'
+icon: 'clock'
+color: 'purple'
 inputs:
   issue_number:
     required: true
