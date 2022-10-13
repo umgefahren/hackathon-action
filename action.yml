@@ -7,7 +7,7 @@ inputs:
     description: 'The issue under which you want the hackathon progress comment.'
   hackathon_end:
     required: true
-    description: 'When the hackathon will end formatted in ISO 8601.'
+    description: 'When the hackathon will end formatted in MM/dd/yyyy hh:mm:s.'
   my_token:
     required: true
     description: 'The GitHub token.'

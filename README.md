@@ -15,6 +15,6 @@ jobs:
       - uses: hackathon-action@v1
         with:
           issue_number: 10
-          hackathon_end: "2022-10-20T15:02:51Z"
+          hackathon_end: "10/17/2022 22:08:23"
           my_token: ${{ secrets.GITHUB_TOKEN }}
 ```
