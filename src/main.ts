@@ -19,11 +19,9 @@ async function run(): Promise<void> {
 
     if (!hackathon_end.isValid) throw new Error('Hackathon end is invalid')
 
-    /*
     if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
       core.setFailed('Disable this workflow, the hackathon should be over')
     }
-    */
 
     const diff = hackathon_end.diffNow()
 
@@ -37,11 +35,9 @@ async function run(): Promise<void> {
       issue_number
     })
 
-    const body = `# Hackathon countdown\n\nTime Left:\n${diff.toFormat(
-      'dd'
-    )} days ${diff.toFormat('hh')} hours ${diff.toFormat(
-      'mm'
-    )} minutes ${diff.toFormat('ss')} seconds`
+    const time_parts = diff.toFormat('dd hh mm ss').split(' ')
+
+    const body = `# Hackathon countdown\n\nTime Left:\n${time_parts[0]} days ${time_parts[1]} hours ${time_parts[2]}} minutes ${time_parts[3]} seconds`
 
     core.debug(`Body: \n ${body}`)
 
