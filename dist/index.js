@@ -48,28 +48,34 @@ function run() {
             const myToken = core.getInput('my_token');
             const octokit = github.getOctokit(myToken);
             const { owner, repo } = github.context.repo;
-            const issue_number_string = core.getInput('issue_number');
-            const issue_number = parseInt(issue_number_string);
-            const comment = yield octokit.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
-                body: 'Action comment'
-            });
-            core.debug(`Association: ${comment.data.author_association}`);
-            core.debug(`User: ${comment.data.user}`);
-            /*
-            const comments = await octokit.rest.issues.listComments({
-              owner,
-              repo,
-              issue_number
-            })
-            */
-            // comments.data.find((comment) => comment.user.)
             const hackathon_end_string = core.getInput('hackathon_end');
             const hackathon_end = luxon_1.DateTime.fromISO(hackathon_end_string);
             const diff = hackathon_end.diffNow();
-            core.debug(`Diff: ${diff.days}`);
+            const issue_number_string = core.getInput('issue_number');
+            const issue_number = parseInt(issue_number_string);
+            const comments = yield octokit.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number
+            });
+            const body = `# Hackathon countdown\n\nTime Left: ${diff.toHuman()}`;
+            const comment_opt = comments.data.find(c => { var _a; return ((_a = c.user) === null || _a === void 0 ? void 0 : _a.type) === 'Bot' && c.user.login === 'github-actions[bot]'; });
+            if (comment_opt === undefined) {
+                yield octokit.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number,
+                    body
+                });
+            }
+            else {
+                yield octokit.rest.issues.updateComment({
+                    owner,
+                    repo,
+                    comment_id: comment_opt.id,
+                    body
+                });
+            }
         }
         catch (error) {
             if (error instanceof Error)

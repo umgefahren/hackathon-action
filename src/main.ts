@@ -11,35 +11,41 @@ async function run(): Promise<void> {
 
     const {owner, repo} = github.context.repo
 
+    const hackathon_end_string: string = core.getInput('hackathon_end')
+    const hackathon_end = DateTime.fromISO(hackathon_end_string)
+
+    const diff = hackathon_end.diffNow()
+
     const issue_number_string: string = core.getInput('issue_number')
     const issue_number = parseInt(issue_number_string)
 
-    const comment = await octokit.rest.issues.createComment({
-      owner,
-      repo,
-      issue_number,
-      body: 'Action comment'
-    })
-
-    core.debug(`Association: ${comment.data.author_association}`)
-    core.debug(`User: ${comment.data.user?.name}`)
-    core.debug(JSON.stringify(comment.data.user))
-
-    /*
     const comments = await octokit.rest.issues.listComments({
       owner,
       repo,
       issue_number
     })
-    */
 
-    // comments.data.find((comment) => comment.user.)
+    const body = `# Hackathon countdown\n\nTime Left: ${diff.toHuman()}`
 
-    const hackathon_end_string: string = core.getInput('hackathon_end')
-    const hackathon_end = DateTime.fromISO(hackathon_end_string)
+    const comment_opt = comments.data.find(
+      c => c.user?.type === 'Bot' && c.user.login === 'github-actions[bot]'
+    )
 
-    const diff = hackathon_end.diffNow()
-    core.debug(`Diff: ${diff.days}`)
+    if (comment_opt === undefined) {
+      await octokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number,
+        body
+      })
+    } else {
+      await octokit.rest.issues.updateComment({
+        owner,
+        repo,
+        comment_id: comment_opt.id,
+        body
+      })
+    }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
