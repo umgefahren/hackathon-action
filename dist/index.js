@@ -46,11 +46,12 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const myToken = core.getInput('my_token');
-            const octokit = github.getOctokit(myToken);
             const { owner, repo } = github.context.repo;
             const hackathon_end_string = core.getInput('hackathon_end');
             core.debug(`Hackathon End: ${hackathon_end_string}`);
-            const hackathon_end = luxon_1.DateTime.fromISO(hackathon_end_string);
+            const hackathon_end = luxon_1.DateTime.fromFormat(hackathon_end_string, "MM/dd/yyyy hh:mm:ss");
+            if (!hackathon_end.isValid)
+                throw new Error("Hackathon end is invalid");
             /*
             if (hackathon_end.toUnixInteger() < DateTime.now().toUnixInteger()) {
               core.setFailed('Disable this workflow, the hackathon should be over')
@@ -59,6 +60,7 @@ function run() {
             const diff = hackathon_end.diffNow();
             const issue_number_string = core.getInput('issue_number');
             const issue_number = parseInt(issue_number_string);
+            const octokit = github.getOctokit(myToken);
             const comments = yield octokit.rest.issues.listComments({
                 owner,
                 repo,
